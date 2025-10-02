@@ -3,13 +3,15 @@ import {Observable} from 'rxjs';
 import {User} from '../../../core/models/user.model';
 import {ProfessionalService} from '../professional.service';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-professional-list',
   imports: [
     NgForOf,
     AsyncPipe,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './professional-list.component.html',
   styleUrl: './professional-list.component.scss'

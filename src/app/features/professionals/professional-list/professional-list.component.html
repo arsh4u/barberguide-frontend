@@ -7,6 +7,7 @@
 
   <div class="gid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <div *ngFor="let professional of professionals$ | async"
+         [routerLink]="['/professionals', professional.id]"
          class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300 cursor-pointer">
       <div>
         <h3 class="text-xl font-semibold text-sky-600">{{ professional.name }}</h3>
