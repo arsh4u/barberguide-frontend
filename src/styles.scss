@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+// Import Tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Add style global in body page
+body {
+  @apply bg-slate-100 text-slate-800;
+}
