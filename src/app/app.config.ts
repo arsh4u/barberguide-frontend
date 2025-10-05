@@ -4,7 +4,8 @@ import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient} from '@angular/common/http';
 import {provideStore} from '@ngrx/store';
-import {DialogService} from './core/services/dialog.service';
+import {ConfirmService} from './core/services/confirm/confirm.service';
+import {ToastService} from './core/services/toast/toast.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideStore(),
-    DialogService
+    ConfirmService,
+    ToastService
   ]
 };

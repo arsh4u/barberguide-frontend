@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {DialogComponent} from './shared/dialog/dialog.component';
+import {ConfirmComponent} from './shared/confirm/confirm.component';
+import {ToastComponent} from './shared/toast/toast.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, DialogComponent],
+  imports: [RouterOutlet, ConfirmComponent, ToastComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

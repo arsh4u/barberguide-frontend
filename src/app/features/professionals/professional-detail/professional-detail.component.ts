@@ -5,7 +5,8 @@ import {ProfessionalService} from '../professional.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {Appointment} from '../../../core/models/appointment.model';
-import {DialogService} from '../../../core/services/dialog.service';
+import {ConfirmService} from '../../../core/services/confirm/confirm.service';
+import {ToastService} from '../../../core/services/toast/toast.service';
 
 @Component({
   selector: 'app-professional-detail',
@@ -26,7 +27,8 @@ export class ProfessionalDetailComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private professionalService: ProfessionalService,
-    private dialogService: DialogService
+    private confirmService: ConfirmService,
+    private toastService: ToastService
   ) {
     // Define a data de hoje como padrão no formato AAAA-MM-DD
     this.selectedDate = new Date().toISOString().split('T')[0];
@@ -68,7 +70,7 @@ export class ProfessionalDetailComponent implements OnInit {
       start_time: `${this.selectedDate} ${time}`
     }
 
-    this.dialogService.confirm({
+    this.confirmService.confirm({
       title: 'Confirmar agendamento',
       message: `Você tem certeza que deseja agendar para ${new Date(this.selectedDate).toLocaleDateString('pt-BR')} às ${time} com este profissional?`,
       confirmText: 'Sim, agendar',
@@ -79,21 +81,15 @@ export class ProfessionalDetailComponent implements OnInit {
       this.professionalService.createAppointment(appointmentPayload)
         .subscribe({
           next: (appointment) => {
-            // this.dialogService.alert({
-            //   title: 'Sucesso!',
-            //   message: `Agendamento realizado com sucesso para ${new Date(appointment.start_time).toLocaleString('pt-BR')}`,
-            //   confirmText: 'OK',
-            //   cancelText: 'Fechar'
-            // });
+            this.toastService.show(
+              `Agendamento realizado com sucesso para ${new Date(appointment.start_time)
+                .toLocaleString('pt-BR')}`,
+              'success'
+            );
             this.loadAvailability(this.activatedRoute.snapshot.params['id'] as number);
           },
           error: (error) => {
-            // this.dialogService.alert({
-            //   title: 'Erro!',
-            //   message: 'Erro ao agendar: ' + error.error.message || 'Tente novamente.',
-            //   confirmText: 'OK',
-            //   cancelText: 'Fechar'
-            // });
+            this.toastService.show('Erro ao agendar: ' + error.error.message || 'Tente novamente.', 'error');
           }
         });
     })
