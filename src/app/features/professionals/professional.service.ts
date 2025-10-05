@@ -3,6 +3,7 @@ import {environment} from '../../../environments/environments';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../core/models/user.model';
+import {Appointment} from '../../core/models/appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class ProfessionalService {
       `${this.apiUrl}/professionals/${professionalId}/availability`,
       {params}
     );
+  }
+
+  createAppointment(appointment: Appointment): Observable<Appointment> {
+    return this.http.post<Appointment>(`${this.apiUrl}/appointments`, appointment);
   }
 }
