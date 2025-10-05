@@ -35,7 +35,7 @@ export class ToastService {
     this.toasts$.next([...this.toasts$.value, newToast]);
 
     // Agenda a remoção do toast para 5 segundos
-    // setTimeout(() => this.remove(id), 5000);
+    setTimeout(() => this.remove(id), 5000);
   }
 
   // Remove o toast da lista pelo ID

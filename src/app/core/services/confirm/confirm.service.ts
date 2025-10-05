@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 
 export interface ConfirmConfig {
   title: string;
@@ -16,7 +16,7 @@ export class ConfirmService {
   private confirmConfig$ = new BehaviorSubject<ConfirmConfig | null>(null);
 
   // Subject para o resultado da ação do usuário
-  private confirmResult$ = new BehaviorSubject<boolean>(false);
+  private confirmResult$ = new Subject<boolean>();
 
   // Método que os componentes chamarão para exibir o confirm "confirmService.confirm()" e obter o resultado da ação
   confirm(config: ConfirmConfig): Observable<boolean> {
