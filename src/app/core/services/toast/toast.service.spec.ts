@@ -2,7 +2,7 @@ import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ToastData, ToastService} from './toast.service';
 
-fdescribe('ToastService', () => {
+describe('ToastService', () => {
   let service: ToastService;
 
   beforeEach(() => {
@@ -33,7 +33,7 @@ fdescribe('ToastService', () => {
   });
 
   // Teste 2: Verifica se um toast é removido manualmente
-  fit('should remove toast manually from list', fakeAsync(() => {
+  it('should remove toast manually from list', fakeAsync(() => {
     const message1 = 'Message test 1', type1 = 'success';
     const message2 = 'Message test 2', type2 = 'info';
 
