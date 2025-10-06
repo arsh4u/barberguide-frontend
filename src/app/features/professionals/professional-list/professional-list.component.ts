@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {finalize, Observable} from 'rxjs';
+import {finalize, Observable, tap} from 'rxjs';
 import {User} from '../../../core/models/user.model';
 import {ProfessionalService} from '../professional.service';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
@@ -31,8 +31,8 @@ export class ProfessionalListComponent implements OnInit {
     this.isLoading = true;
     this.professionals$ = this.professionalService.getProfessionals().pipe(
       finalize(() => {
-        console.log('--- FINALIZOU ---');
-        this.isLoading = false
+        this.isLoading = false;
+        console.log('--- Professionals loaded ---');
       })
     );
   }
