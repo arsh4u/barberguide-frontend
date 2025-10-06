@@ -8,7 +8,7 @@ Interface de usuário moderna e reativa para um sistema de agendamentos de barbe
 
 ### 🎬 Aplicação em Funcionamento
 
-[INSERIR UM GIF DE 15-20 SEGUNDOS AQUI MOSTRANDO O FLUXO: LISTA -> DETALHES -> SELECIONAR DATA -> CLICAR HORÁRIO -> CONFIRMAR -> VER O TOAST DE SUCESSO]
+![Image](https://github.com/user-attachments/assets/6ec82a9f-b350-4534-811a-9e3ca7ea68e4)
 
 ---
 
