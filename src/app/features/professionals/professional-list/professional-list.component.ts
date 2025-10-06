@@ -1,39 +1,33 @@
 import {Component, OnInit} from '@angular/core';
-import {finalize, Observable, tap} from 'rxjs';
+import {Observable} from 'rxjs';
 import {User} from '../../../core/models/user.model';
-import {ProfessionalService} from '../professional.service';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Store} from '@ngrx/store';
+import {selectError, selectLoading, selectProfessionals} from '../store/professionals.reducer';
+import {ProfessionalsActions} from '../store/professionals.actions';
 
 @Component({
   selector: 'app-professional-list',
-  imports: [
-    NgForOf,
-    AsyncPipe,
-    NgIf,
-    RouterLink
-  ],
+  imports: [NgForOf, AsyncPipe, NgIf, RouterLink],
   templateUrl: './professional-list.component.html',
   styleUrl: './professional-list.component.scss'
 })
 export class ProfessionalListComponent implements OnInit {
-  public professionals$!: Observable<User[]>;
-  public isLoading = false;
+  // Get from Store
+  public professionals$: Observable<User[]>;
+  public isLoading$: Observable<boolean>;
+  public error$: Observable<any>;
 
-  constructor(
-    private store: Store,
-    private professionalService: ProfessionalService
-  ) {
+  constructor(private store: Store) {
+    // Init from store
+    this.professionals$ = this.store.select(selectProfessionals);
+    this.isLoading$ = this.store.select(selectLoading);
+    this.error$ = this.store.select(selectError);
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.professionals$ = this.professionalService.getProfessionals().pipe(
-      finalize(() => {
-        this.isLoading = false;
-        console.log('--- Professionals loaded ---');
-      })
-    );
+    // Dispatch Store
+    this.store.dispatch(ProfessionalsActions.loadProfessionals());
   }
 }

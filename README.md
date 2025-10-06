@@ -1,59 +1,79 @@
-# BarberGuide Frontend
+# BarberGuide Frontend (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+Interface de usuário moderna e reativa para um sistema de agendamentos de barbearias e cabeleleiros, desenvolvida com a arquitetura Standalone do Angular 19. Este projeto demonstra a construção de uma Single Page Application (SPA) complexa, com gerenciamento de estado profissional, uma suíte de testes abrangente e UI construída com Tailwind CSS.
 
-## Development server
+**[➡️ ACESSE A DEMO AO VIVO AQUI ⬅️](URL_DA_SUA_DEMO_NO_VERCEL_OU_SIMILAR)**
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+### 🎬 Aplicação em Funcionamento
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+[INSERIR UM GIF DE 15-20 SEGUNDOS AQUI MOSTRANDO O FLUXO: LISTA -> DETALHES -> SELECIONAR DATA -> CLICAR HORÁRIO -> CONFIRMAR -> VER O TOAST DE SUCESSO]
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 📋 Tabela de Conteúdos
+1.  [Sobre o Projeto](#-sobre-o-projeto)
+2.  [Principais Habilidades Demonstradas](#-principais-habilidades-demonstradas)
+3.  [Decisões de Arquitetura](#-decisões-de-arquitetura)
+4.  [Tech Stack](#-tech-stack)
+5.  [Como Executar Localmente](#-como-executar-localmente)
+6.  [Rodando os Testes](#-rodando-os-testes)
+7.  [Próximos Passos](#-próximos-passos)
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### ✨ Sobre o Projeto
 
-```bash
-ng generate --help
-```
+Este frontend consome a [BarberGuide API](https://github.com/bribinha/barberguide-api) para fornecer uma experiência de usuário fluida e interativa para agendar horários com profissionais. O projeto foi estruturado com foco em escalabilidade, manutenibilidade e nas práticas mais modernas do ecossistema Angular.
 
-## Building
+### 🚀 Principais Habilidades Demonstradas
 
-To build the project run:
+* **Arquitetura Standalone (Angular 19):** Aplicação construída 100% com a nova API de componentes, diretivas e pipes standalone, utilizando `provide` functions para configuração.
+* **Gerenciamento de Estado com NgRx:** Implementação do padrão Redux com NgRx para um estado global previsível e de fácil depuração.
+    * **Store:** Fonte única da verdade.
+    * **Actions & Reducers:** Para transições de estado imutáveis e explícitas.
+    * **Effects:** Para isolar efeitos colaterais (chamadas de API).
+* **Testes Abrangentes (TDD):** Cobertura de testes completa com Jasmine e Karma, demonstrando uma abordagem de desenvolvimento focada em qualidade.
+    * **Testes Unitários de Serviço:** Utilizando `HttpClientTestingModule` e mocks.
+    * **Testes de Componentes:** Verificando renderização, interação do usuário (`fakeAsync`, `tick`) e aplicação de classes CSS.
+    * **Testes de Navegação:** Garantindo que o roteamento se comporta como esperado com `RouterTestingModule`.
+* **UI Moderna com Tailwind CSS:** Construção de uma interface responsiva e customizada utilizando o framework utility-first Tailwind CSS.
+* **Serviços Reutilizáveis e UX:** Criação de serviços desacoplados para funcionalidades de UI, como diálogos de confirmação e notificações de toast, melhorando a experiência do usuário.
+* **Padrões Avançados de RxJS:** Uso de operadores como `switchMap`, `finalize`, `filter`, `map` e `catchError` para gerenciar fluxos de dados assíncronos de forma robusta.
 
-```bash
-ng build
-```
+### 🏛️ Decisões de Arquitetura
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+* **Por que NgRx?** Para centralizar o estado da aplicação, tornando-a mais previsível e fácil de depurar com ferramentas como o Redux DevTools. Essencial para a escalabilidade do projeto.
+* **Por que Standalone?** Para alinhar o projeto com as práticas mais modernas do Angular, resultando em um código menos verboso e builds mais otimizados.
+* **Por que `data-testid` nos Testes?** Para desacoplar os testes da implementação de estilos (classes CSS), tornando-os mais robustos e resistentes a mudanças na UI.
 
-## Running unit tests
+### 🛠️ Tech Stack
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+* **Angular 19** (Standalone)
+* **TypeScript**
+* **NgRx** (Store, Effects, StoreDevtools)
+* **RxJS**
+* **Tailwind CSS**
+* **Jasmine & Karma** (Testes)
 
+### ⚙️ Como Executar Localmente
+
+**Pré-requisitos:**
+* Node.js >= 20.x
+* NPM ou Yarn
+* Angular CLI
+* **A [BarberGuide API](https://github.com/bribinha/barberguide-api) deve estar rodando localmente.**
+
+**Passos:**
+1.  Clone o repositório: `git clone https://github.com/bribinha/barberguide-frontend`
+2.  Navegue até a pasta: `cd booking-system-frontend`
+3.  Instale as dependências: `npm install`
+4.  Inicie o servidor de desenvolvimento: `npm start`
+    * A aplicação estará disponível em `http://localhost:4200`
+
+### 🧪 Rodando os Testes
+
+Para executar a suíte de testes completa, rode:
 ```bash
 ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -1,19 +1,26 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {ProfessionalListComponent} from './professional-list.component';
-import {of, Subject} from 'rxjs';
 import {User} from '../../../core/models/user.model';
-import {ProfessionalService} from '../professional.service';
-import {provideStore} from '@ngrx/store';
 import {By} from '@angular/platform-browser';
 import {appRoutes} from '../../../app.routes';
 import {provideRouter} from '@angular/router';
 import {Location} from '@angular/common';
 import {provideLocationMocks} from '@angular/common/testing';
+import {MockStore, provideMockStore} from '@ngrx/store/testing';
+import {
+  ProfessionalsState,
+  initialState,
+  selectError,
+  selectLoading,
+  selectProfessionals
+} from '../store/professionals.reducer';
+import {ProfessionalsActions} from '../store/professionals.actions';
+
 
 describe('ProfessionalListComponent', () => {
   let component: ProfessionalListComponent;
   let fixture: ComponentFixture<ProfessionalListComponent>;
-  let mockProfessionalsService: jasmine.SpyObj<ProfessionalService>;
+  let store: MockStore<ProfessionalsState>;
   let location: Location;
 
   beforeEach(async () => {
@@ -25,17 +32,22 @@ describe('ProfessionalListComponent', () => {
       providers: [
         provideRouter(appRoutes),
         provideLocationMocks(),
-        provideStore(),
-        {provide: ProfessionalService, useValue: professionalServiceSpy},
+        provideMockStore({initialState}),
+        // {provide: ProfessionalService, useValue: professionalServiceSpy},
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProfessionalListComponent);
     component = fixture.componentInstance;
-    mockProfessionalsService = TestBed.inject(ProfessionalService) as jasmine.SpyObj<ProfessionalService>;
+    // mockProfessionalsService = TestBed.inject(ProfessionalService) as jasmine.SpyObj<ProfessionalService>;
+    store = TestBed.inject(MockStore);
     location = TestBed.inject(Location);
 
-    mockProfessionalsService.getProfessionals.and.returnValue(of([]));
+    spyOn(store, 'dispatch');
+
+    fixture.detectChanges();
+
+    // mockProfessionalsService.getProfessionals.and.returnValue(of([]));
   });
 
   it('should create', () => {
@@ -48,25 +60,57 @@ describe('ProfessionalListComponent', () => {
     expect(title.textContent).toBe('Nossos profissionais');
   });
 
+  it('should dispatch LoadProfessionals action on init', () => {
+    // Verifica se a ação correta foi despachada quando o componente iniciou
+    expect(store.dispatch).toHaveBeenCalledWith(ProfessionalsActions.loadProfessionals());
+  });
+
+  it('should display professionals list when loading is false and data is available', () => {
+    const mockProfessionals: User[] = [{ id: 1, name: 'Dr. Barber', email: 'a@a.com', role: 'profissional' }];
+    // Atualiza o estado do Store para simular dados carregados
+    store.overrideSelector(selectProfessionals, mockProfessionals);
+    store.overrideSelector(selectLoading, false);
+    store.refreshState();
+    fixture.detectChanges();
+
+    const professionalElement = fixture.debugElement.query(By.css('.professional-item'));
+    expect(professionalElement).not.toBeNull();
+    expect(professionalElement.nativeElement.textContent).toContain('Dr. Barber');
+  });
+
+  it('should display error message when an error occurs', () => {
+    // Atualiza o estado do Store para simular um erro
+    store.overrideSelector(selectError, { message: 'Failed to load' });
+    store.overrideSelector(selectLoading, false);
+    store.refreshState();
+    fixture.detectChanges();
+
+    const errorElement = fixture.debugElement.query(By.css('.text-red-500'));
+    expect(errorElement).not.toBeNull();
+    expect(errorElement.nativeElement.textContent).toContain('Ocorreu um erro');
+  });
+
+
   // Teste para o estado de carregamento
   it('should display loading message initially and then show professionals', () => {
     // Arrange
-    const professionals$ = new Subject<User[]>();
-    mockProfessionalsService.getProfessionals.and.returnValue(professionals$.asObservable());
+    store.overrideSelector(selectProfessionals, []);
+    store.overrideSelector(selectLoading, true);
+    store.refreshState();
 
-    // Act &
+    // Act
     fixture.detectChanges();
 
     // Assert (Loading State)
-    expect(component.isLoading).toBeTrue();
     const loadingElement = fixture.debugElement.query(By.css('.loading-message'));
     expect(loadingElement).withContext('O loading deveria aparecer no início').not.toBeNull();
     expect(loadingElement.nativeElement.textContent).toContain('Carregando profissionais...');
 
     // Act (Simulate API Response)
     const mockProfessionals: User[] = [{id: 1, name: 'Dr. Barber', email: 'barber@gmail.com', role: 'profissional'}];
-    professionals$.next(mockProfessionals);
-    professionals$.complete();
+    store.overrideSelector(selectProfessionals, mockProfessionals);
+    store.overrideSelector(selectLoading, false);
+    store.refreshState();
 
     fixture.detectChanges();
 
@@ -78,14 +122,15 @@ describe('ProfessionalListComponent', () => {
 
     // Assert (Loading State)
     const finalLoadingElement = fixture.debugElement.query(By.css('.loading-message'));
-    expect(component.isLoading).toBeFalse();
+    expect(finalLoadingElement).toBeNull();
     expect(finalLoadingElement).withContext('O loading deveria desaparecer no final').toBeNull();
   });
 
   // Teste para o estado de "nenhum encontrado"
   it('should display "not found" message when API returns an empty array', () => {
     // Arrange (Array empty)
-    mockProfessionalsService.getProfessionals.and.returnValue(of([]));
+    store.overrideSelector(selectProfessionals, []);
+    store.refreshState();
 
     // Act
     fixture.detectChanges();
@@ -99,7 +144,8 @@ describe('ProfessionalListComponent', () => {
   it('should navigate to the correct professional detail page on card click', fakeAsync(() => {
     // Assert: Mock array one professional
     const mockProfessionals: User[] = [{id: 1, name: 'Dr. Barber', email: 'a@a.com', role: 'profissional'}];
-    mockProfessionalsService.getProfessionals.and.returnValue(of(mockProfessionals));
+    store.overrideSelector(selectProfessionals, mockProfessionals);
+    store.refreshState();
     fixture.detectChanges();
 
     // Act: Encontra o card e simula o clique
@@ -120,7 +166,8 @@ describe('ProfessionalListComponent', () => {
       {id: 2, name: 'Profissional 2', email: 'b@g.com', role: 'profissional'},
       {id: 3, name: 'Profissional 3', email: 'c@g.com', role: 'profissional'},
     ];
-    mockProfessionalsService.getProfessionals.and.returnValue(of(mockProfessionals));
+    store.overrideSelector(selectProfessionals, mockProfessionals);
+    store.refreshState();
 
     // Act: Renderiza o componente e aguarda a resolução do observable
     fixture.detectChanges();
