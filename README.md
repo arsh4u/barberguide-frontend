@@ -2,8 +2,6 @@
 
 Interface de usuário moderna e reativa para um sistema de agendamentos de barbearias e cabeleleiros, desenvolvida com a arquitetura Standalone do Angular 19. Este projeto demonstra a construção de uma Single Page Application (SPA) complexa, com gerenciamento de estado profissional, uma suíte de testes abrangente e UI construída com Tailwind CSS.
 
-**[➡️ ACESSE A DEMO AO VIVO AQUI ⬅️](URL_DA_SUA_DEMO_NO_VERCEL_OU_SIMILAR)**
-
 ---
 
 ### 🎬 Aplicação em Funcionamento
