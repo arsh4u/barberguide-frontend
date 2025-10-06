@@ -79,13 +79,8 @@ ng test
 
 ###  🔮 Próximos Passos
 * **[ ] Implementação das telas e fluxo de Autenticação (login, register).**
-
 * **[ ] Criação de um AuthService e AuthGuard para proteger rotas.**
-
 * **[ ] Página "Meus Agendamentos" para o cliente.**
-
 * **[ ] Dashboard de gerenciamento de agenda para o profissional.**
-
 * **[ ] Refatoração do fluxo de agendamento para usar o estado do NgRx.**
-
 * **[ ] Deploy na Vercel/Netlify.**
