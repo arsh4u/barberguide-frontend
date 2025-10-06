@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
+import {finalize, Observable} from 'rxjs';
 import {User} from '../../../core/models/user.model';
 import {ProfessionalService} from '../professional.service';
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
@@ -19,6 +19,7 @@ import {Store} from '@ngrx/store';
 })
 export class ProfessionalListComponent implements OnInit {
   public professionals$!: Observable<User[]>;
+  public isLoading = false;
 
   constructor(
     private store: Store,
@@ -27,6 +28,12 @@ export class ProfessionalListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.professionals$ = this.professionalService.getProfessionals();
+    this.isLoading = true;
+    this.professionals$ = this.professionalService.getProfessionals().pipe(
+      finalize(() => {
+        console.log('--- FINALIZOU ---');
+        this.isLoading = false
+      })
+    );
   }
 }

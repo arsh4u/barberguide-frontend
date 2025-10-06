@@ -54,7 +54,7 @@ describe('ToastService', () => {
   }));
 
   // Teste 3: Verifica se um toast é removido automaticamente (após 5 segundos)
-  fit('should remove toast automatic before 5 seconds from list', fakeAsync(() => {
+  it('should remove toast automatic before 5 seconds from list', fakeAsync(() => {
     const message = 'Message test', type = 'success';
 
     // Ação: exibe o toast de sucesso
